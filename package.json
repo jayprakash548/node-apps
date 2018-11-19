@@ -9,6 +9,7 @@
   "author": "jay",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mongod": "^2.0.0"
   }
 }

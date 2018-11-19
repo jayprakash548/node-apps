@@ -1,7 +1,17 @@
-const http = require('http')
+const express = require('express');
+const config = require('./config/configApp'); //Import Config File
+const fs =require('fs');
+const app = express();
 
-http.createServer(function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'Text/plain' });
-    res.end("Hello...");
-}).listen(3000);
-console.log("Hosting Node at 3000 Port Number");
+// Import Route
+let routesPath = './routes'
+fs.readdirSync(routesPath).forEach(function(file){
+    if(~file.indexOf('.js')){      
+        console.log('Includes JS File')  ;
+        console.log(routesPath+'/'+ file);
+        const route = require(routesPath +'/' + file);             
+        route.setRouter(app);
+    }
+})
+
+app.listen(config.port, () => console.log('Port Running at 3000'))

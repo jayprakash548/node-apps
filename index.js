@@ -4,6 +4,13 @@ const fs =require('fs');
 const mongoose = require('mongoose');
 const app = express();
 
+
+// Import Model
+let modelsPath = './models'
+fs.readdirSync(modelsPath).forEach(function(file){
+    if(~file.indexOf('.js')) require(modelsPath+ '/' + file)     
+}) // End Bootstrap Model
+
 // Import Route
 let routesPath = './routes'
 fs.readdirSync(routesPath).forEach(function(file){

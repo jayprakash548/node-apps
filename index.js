@@ -3,7 +3,14 @@ const config = require('./config/configApp'); //Import Config File
 const fs =require('fs');
 const mongoose = require('mongoose');
 const app = express();
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
+//Middleware 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended:true }));
+app.use(cookieParser());
+//Middleware End
 
 // Import Model
 let modelsPath = './models'
@@ -22,7 +29,7 @@ fs.readdirSync(routesPath).forEach(function(file){
     }
 })
 
-// Mongo COnnection Start
+// Mongo Connection Start
 app.listen(config.port, () => {
     console.log('Port Running at 3000');
     let db = mongoose.connect(config.db.uri, { useNewUrlParser: true })
@@ -32,12 +39,11 @@ mongoose.connection.on('error',function(err){
     console.log('database connection error')
     console.log(err)
 })
-mongoose.connection.on('open',function(err){
-    if(err){
+mongoose.connection.on('open', function(err) {
+    if (err) {
         console.log('database connection error')
         console.log(err)
-    }
-    else{
+    }else{
         console.log('database connected succesffully')
     }
 })

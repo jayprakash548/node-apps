@@ -1,9 +1,25 @@
 const express = require('express')
 
-let helloWorld = (req,res) => res.send('Hello HelloWorld!!');
-let printmsg = (req,res) => res.send('Print HelloWorld!!');
+// Start Route Method
+let routemethod = (req,res) => {
+    console.log(req.params);
+    res.send(req.params);
+}// End blog route
+
+// Start Query Method
+let querymethod = (req,res) => {
+    console.log(req.query);
+    res.send(req.query);
+}// End Query route
+
+// Start body Method
+let bodymethod = (req,res) => {
+    console.log(req.body);
+    res.send(req.body);
+}// End Body route
 
 module.exports = {
-    helloWorld: helloWorld,
-    printmsg: printmsg
+    routemethod: routemethod,
+    querymethod: querymethod,
+    bodymethod: bodymethod
 }

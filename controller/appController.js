@@ -1,5 +1,25 @@
 const express = require('express')
+const mongoose = require('mongoose')
+const shortId =  require('short-id')
 
+const BlogModel = mongoose.model('blogApp')
+
+const getAllBlog = (req, res) =>{
+    BlogModel.find()
+    .select('-__v -_id')
+    .lean()
+    .exec((err, result) =>{
+        if(err){
+            console.log(err);
+            res.send(err);
+        }else if(result==undefined || result == null || result == ''){
+            console.log('No Blog Found')
+            res.send("No Blog Found")
+        }else{
+            res.send(result)
+        }
+    })
+}
 // Start Route Method
 let routemethod = (req,res) => {
     console.log(req.params);
@@ -19,6 +39,7 @@ let bodymethod = (req,res) => {
 }// End Body route
 
 module.exports = {
+    getAllBlog: getAllBlog,
     routemethod: routemethod,
     querymethod: querymethod,
     bodymethod: bodymethod

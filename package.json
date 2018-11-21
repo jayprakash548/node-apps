@@ -13,6 +13,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "mongod": "^2.0.0",
-    "mongoose": "^5.3.12"
+    "mongoose": "^5.3.12",
+    "short-id": "0.1.0-1"
   }
 }

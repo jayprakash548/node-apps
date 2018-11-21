@@ -46,4 +46,4 @@ const blogSchema = new schema(
         }
     }
 )
-mongoose.model('appSchema', blogSchema)
+mongoose.model('blogApp', blogSchema)

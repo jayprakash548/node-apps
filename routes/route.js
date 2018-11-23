@@ -3,15 +3,17 @@ const express = require('express')
 const appController = require('../controller/appController');
 const appConfig = require('../config/configApp');
 
-
-
 const setRouter = (app) => {
     const baseUrl = appConfig.apiVersion+'/blogs';
     console.log(baseUrl); //api/v1/blogs
     app.get(baseUrl+'/all', appController.getAllBlog);
-    app.get('/blog/route/:firstname/:lastname', appController.routemethod);
-    app.get('/blog/query', appController.querymethod);
-    app.post('/blog/body', appController.bodymethod);
+    app.get(baseUrl+'/view/:blogId', appController.viewBlogById);
+    app.get(baseUrl+'/view/by/author/:author', appController.viewByAuthor);
+    app.get(baseUrl+'/view/by/category/:category',appController.viewByCategory);   
+    app.post(baseUrl+'/create',appController.createBlog);
+    app.post(baseUrl+'/:blogId/delete',appController.deleteBlog);
+    app.put(baseUrl+'/:blogId/edit',appController.editBlog);    
+    app.get(baseUrl+'/:blogId/count/view',appController.increaseBlogView);   
 }
 module.exports = {
     setRouter: setRouter

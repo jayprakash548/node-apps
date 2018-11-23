@@ -5,11 +5,13 @@ const mongoose = require('mongoose');
 const app = express();
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const globalErrorMiddleware = require('./middlewares/appErrorHandler');
 
-//Middleware 
+//Application level Middleware 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 app.use(cookieParser());
+app.use(globalErrorMiddleware.errorHandler);
 //Middleware End
 
 // Import Model
@@ -28,6 +30,10 @@ fs.readdirSync(routesPath).forEach(function(file){
         route.setRouter(app);
     }
 })
+
+// Router Level Middleware
+app.use(globalErrorMiddleware.notFoundHandler);
+// End Router Level Middleware
 
 // Mongo Connection Start
 app.listen(config.port, () => {

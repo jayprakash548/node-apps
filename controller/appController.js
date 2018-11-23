@@ -23,6 +23,7 @@ const getAllBlog = (req, res) =>{
 
 // function to read single Blog by ID
 const viewBlogById = (req, res) =>{
+    console.log(req.user);
     BlogModel.findOne( {'blogId': req.params.blogId}, (err, result) =>{
         if(err){
             console.log(err);

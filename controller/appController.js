@@ -163,8 +163,6 @@ const increaseBlogView = (req, res) => {
     })
 }
 
-
-
 module.exports = {
     getAllBlog: getAllBlog,
     viewBlogById: viewBlogById,

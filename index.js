@@ -6,13 +6,18 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const globalErrorMiddleware = require('./middlewares/appErrorHandler');
+const routeLoggerMiddleware = require('./middlewares/routeLogger')
 
-//Application level Middleware 
+//Third-party middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 app.use(cookieParser());
+//End Third-party middleware
+
+//Error-handling middleware
 app.use(globalErrorMiddleware.errorHandler);
-//Middleware End
+app.use(routeLoggerMiddleware.logIp)
+//End Error-handling middleware
 
 // Import Model
 let modelsPath = './models'
@@ -31,9 +36,9 @@ fs.readdirSync(routesPath).forEach(function(file){
     }
 })
 
-// Router Level Middleware
+// //Error-handling middleware
 app.use(globalErrorMiddleware.notFoundHandler);
-// End Router Level Middleware
+//Error-handling middleware
 
 // Mongo Connection Start
 app.listen(config.port, () => {
